@@ -14,13 +14,13 @@ public class PedidoModel {
 
     private Long id;
 
-    @Column(name = "status_pedido")
+    @Column(name = "statusPedido")
     private String status;
 
-    @Column(name = "data_pedido")
+    @Column(name = "dataPedido")
     private LocalDateTime data;
 
-    @Column(name = "valor_total_pedido")
+    @Column(name = "valorTotalPedido")
     private BigDecimal valorTotal;
 
     public PedidoModel(){
