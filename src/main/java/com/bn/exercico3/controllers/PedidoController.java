@@ -19,16 +19,22 @@ public class PedidoController {
 
     @GetMapping
     public ResponseEntity<List<PedidoModel>>findAll(){
-        List<PedidoModel> requeste = pedidoService.findAll();
-        return ResponseEntity.ok().body(requeste);
+        List<PedidoModel> pedidos = pedidoService.findAll();
+        return ResponseEntity.ok().body(pedidos);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PedidoModel> buscarPedidoPorId(@PathVariable Long id){
+       PedidoModel pedido = pedidoService.buscarPedidoPorId(id);
+       return ResponseEntity.ok(pedido);
     }
 
     @PostMapping
     public ResponseEntity<PedidoModel> criarPedido(@RequestBody PedidoModel pedidoModel){
-        PedidoModel requeste = pedidoService.criarPedido(pedidoModel);
+        PedidoModel pedidoCriado = pedidoService.criarPedido(pedidoModel);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}").buildAndExpand(pedidoModel.getId()).toUri();
-        return ResponseEntity.created(uri).body(requeste);
+        return ResponseEntity.created(uri).body(pedidoCriado);
     }
 
     @DeleteMapping("/{id}")
@@ -37,14 +43,11 @@ public class PedidoController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public PedidoModel buscarPedidoPorId(@PathVariable Long id){
-        return pedidoService.buscarPedidoPorId(id);
-    }
-
     @PutMapping("/{id}")
-    public PedidoModel atualizarPedido(@PathVariable Long id, PedidoModel pedidoModel){
-        return pedidoService.atualizarPedido(id, pedidoModel);
+    public ResponseEntity<PedidoModel> atualizarPedido
+            (@PathVariable Long id, @RequestBody PedidoModel pedidoModel){
+        PedidoModel pedidoAtualizado = pedidoService.atualizarPedido(id, pedidoModel);
+        return ResponseEntity.ok(pedidoAtualizado);
     }
 
 }

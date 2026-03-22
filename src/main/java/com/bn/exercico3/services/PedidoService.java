@@ -30,7 +30,10 @@ public class PedidoService {
     }
 
     public PedidoModel atualizarPedido(Long id, PedidoModel pedidoModel){
-        PedidoModel newPedidoModel = pedidoRepository.findById(id).get();
-        return pedidoRepository.save(pedidoModel);
+        PedidoModel novoPedido = pedidoRepository.findById(id).get();
+        novoPedido.setData(pedidoModel.getData());
+        novoPedido.setValorTotal(pedidoModel.getValorTotal());
+        novoPedido.setStatus(pedidoModel.getStatus());
+        return pedidoRepository.save(novoPedido);
     }
 }
